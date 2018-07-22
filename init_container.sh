@@ -28,6 +28,6 @@ cat /etc/motd
 
 eval $(printenv | awk -F= '{print "export " $1"="$2 }' >> /etc/profile)
 
-/etc/init.d/sshd restart
+/usr/sbin/sshd
 
 python runserver.py

@@ -10,7 +10,9 @@ RUN apk --update add g++ \
     openssl-dev \
     openssh \
     openrc \
-    bash 
+    bash \
+    && echo "root:Docker!" | chpasswd \
+    && echo "cd /home" >> /etc/bash.bashrc 
 
 COPY . /app
 WORKDIR /app

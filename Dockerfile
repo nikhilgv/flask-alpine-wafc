@@ -47,4 +47,4 @@ WORKDIR /app
 
 EXPOSE 2222 5000
 
-CMD ["/sbin/init"]
+CMD env | grep _ >> /etc/environment && /sbin/init

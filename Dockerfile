@@ -47,4 +47,4 @@ WORKDIR /app
 
 EXPOSE 2222 5000
 RUN mkdir -p /etc/env.d
-CMD env | awk -F= '{print $1"=" "\""$2"\"" }' >> /etc/env.d/99local && /sbin/init
+CMD env | awk -F= '{print "export " $1"="$2 }' >> /etc/profile && source /etc/profile && /sbin/init

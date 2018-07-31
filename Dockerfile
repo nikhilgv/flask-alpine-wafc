@@ -46,5 +46,5 @@ COPY . /app
 WORKDIR /app
 
 EXPOSE 2222 5000
-
-CMD env | grep _ >> /etc/env.d/99local && /sbin/init
+RUN mkdir -p /etc/env.d
+CMD env | awk -F= '{print $1"=" "\""$2"\"" }' >> /etc/env.d/99local && /sbin/init

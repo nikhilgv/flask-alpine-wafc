@@ -34,17 +34,11 @@ RUN  \
 COPY requirements.txt /
 RUN pip install -r requirements.txt
 
-# Running startup script after bootup https://wiki.gentoo.org/wiki//etc/local.d
-COPY init_container.sh /etc/local.d/init.start
-RUN chmod +x /etc/local.d/init.start \
-    && rc-update add local default
-
-# Enable local script run logging
-COPY local /etc/conf.d/local
 
 COPY . /app
 WORKDIR /app
+RUN chmod +x /app/init_container.sh
 
 EXPOSE 2222 5000
-RUN mkdir -p /etc/env.d
-CMD env | awk -F= '{print "export " $1"="$2 }' >> /etc/profile && source /etc/profile && /sbin/init
+
+CMD env | awk -F= '{print "export " $1"="$2 }' >> /etc/profile && source /etc/profile && /bin/bash /app/init_container.sh

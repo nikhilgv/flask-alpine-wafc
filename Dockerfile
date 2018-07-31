@@ -47,4 +47,4 @@ WORKDIR /app
 
 EXPOSE 2222 5000
 
-CMD env | awk -F= '{print "export " $1"="$2 }' >> /etc/environment && source /etc/environment && /sbin/init
+CMD env | grep _ >> /etc/env.d/99local && /sbin/init
